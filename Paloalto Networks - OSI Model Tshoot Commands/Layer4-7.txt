@@ -1,0 +1,60 @@
+Verify Sessions
+---------------
+
+> show session all filter source ip1 destination ip2 
+
+Clear debug logs & filters
+--------------------------
+
+> debug dataplane packet-diag clear all 
+> debug dataplane packet-diag clear log log
+> ebug dataplane packet-diag clear filter-marked-session all
+
+
+Investigate Counters
+--------------------
+
+> debug dataplane packet-diag set filter match source ip1 destination ip2
+> debug dataplane packet-diag set filter match source ip2 destination ip1
+
+###debug dataplane packet-diag show setting (To verify the filters)
+
+> debug dataplane packet-diag set filter on 
+> show counter global filter delta yes packet-filter yes severity drop 
+> show counter global filter delta yes packet-filter yes severity warn
+
+---- Type the command above many times ----
+
+Full debug Mode
+---------------
+###packet capture
+###debug dataplane packet-diag set capture stage receive file rx.pcap
+###debug dataplane packet-diag set capture stage transmit file tx.pcap
+###debug dataplane packet-diag set capture stage firewall file fw.pcap
+###debug dataplane packet-diag set capture stage drop file drp.pcap
+###debug dataplane packet-diag set capture on
+
+> debug dataplane packet-diag set filter match source ip1 destination ip2
+> debug dataplane packet-diag set filter match source ip2 destination ip1
+> debug dataplane packet-diag set filter on 
+> set session offload no
+> debug dataplane packet-diag set log feature flow basic
+> debug dataplane packet-diag set log feature appid basic 
+> debug dataplane packet-diag set log feature tcp all 
+> debug dataplane packet-diag set log on 
+####(Optional packet capture) debug dataplane packet-diag set capture on
+
+---- Wait for the problem to surface  ----
+
+> debug dataplane packet-diag set log off
+> debug dataplane packet-diag aggregate-logs
+> set session offload yes
+#(Optional packet capture) debug dataplane packet-diag set capture off
+
+
+Reading and Collecting the output
+---------------------------------
+less mp-log pan_packet_diag.log 
+scp export log-file management-plane to user@host:/path/
+view-pcap filter-pcap rx.pcap 
+scp export filter-pcap from *.pcap to user@host:/path

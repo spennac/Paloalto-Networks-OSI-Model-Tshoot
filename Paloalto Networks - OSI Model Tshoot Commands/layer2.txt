@@ -1,0 +1,5 @@
+> show lldp neighbors <interface_name> | match System 
+> show mac all
+> show interface <interface_name> | match error 
+> show interface <interface_name> | match received 
+> show lacp aggregate-ethernet <ae_interface_name>

@@ -1,0 +1,9 @@
+> show system state filter chassis.leds
+> show system environmentals
+> show log system query equal "( eventid eq link-change ) and ( object eq 'ethernet1/1' )" direction equal backward 
+> show interface <interface_name>
+
+> show session info 
+> show counter global filter severity warn delta yes
+> show running resource-monitor second 
+> show running resource-monitor ingress-backlogs
