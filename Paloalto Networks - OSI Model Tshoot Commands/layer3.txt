@@ -10,7 +10,8 @@ Static Routing
 BGP
 ---
 
-> grep mp-log routed.log pattern “Bad\|reject“
+> grep mp-log routed.log pattern "Bad\|reject"
+> grep mp-log routed.log pattern "Established"
 > show routing protocol bgp summary 
 > show routing protocol bgp peer
 
@@ -20,5 +21,3 @@ BGP
 > test routing fib-lookup ip <ip_address> virtual-router default
 > show routing fib virtual-router default afi ipv4 
 > show routing resource 
-
-grep pattern Bad\|reject mp-log routed.log
